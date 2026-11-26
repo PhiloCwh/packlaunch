@@ -1,0 +1,11 @@
+node_modules/
+.generated/
+public/deployment.json
+.env
+out/
+cache/
+public/abis.json
+.preview.jpg
+flap-ui/manifest.json
+
+pk.txt

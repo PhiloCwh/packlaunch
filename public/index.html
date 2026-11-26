@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131123">
+  <title>PackLaunch · 碎片盲盒</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="bar">
+      <a class="logo" href="/" aria-label="PackLaunch 首页" data-i18n-aria="PackLaunch 首页"><span class="logo-mark" aria-hidden="true"></span> PACK<span>LAUNCH</span></a>
+      <nav aria-label="主导航" data-i18n-aria="主导航"><button data-tab="rewards" aria-current="page" data-i18n="碎片金库">碎片金库</button><button data-tab="launch" data-i18n="代币发行">代币发行</button></nav>
+      <div class="wallet"><select id="language" aria-label="Language"><option value="zh">中文</option><option value="en">English</option></select><span id="network" class="network" data-i18n="正在连接">正在连接</span><select id="accounts" hidden aria-label="演示钱包" data-i18n-aria="演示钱包"></select><button id="connect" class="outline" data-i18n="连接钱包">连接钱包</button></div>
+    </div>
+  </header>
+  <main>
+    <section id="rewards-panel">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span> POOL LAUNCH <span class="divider">/</span> <span data-i18n="收藏赛季">收藏赛季</span></div>
+          <h1 data-i18n="碎片金库">碎片金库</h1>
+          <p data-i18n="持有超过 100,000 PACK，按持仓领取碎片。每 100 枚可开一次盲盒。">持有超过 100,000 PACK，按持仓领取碎片。每 100 枚可开一次盲盒。</p>
+        </div>
+        <div class="hero-art" aria-label="火、水、草三种原创收藏生物" data-i18n-aria="火、水、草三种原创收藏生物">
+          <div class="art-cell fire"><span class="creature fire" aria-hidden="true"></span><small data-i18n="火系">火系</small></div>
+          <div class="art-cell water"><span class="creature water" aria-hidden="true"></span><small data-i18n="水系">水系</small></div>
+          <div class="art-cell leaf"><span class="creature leaf" aria-hidden="true"></span><small data-i18n="草系">草系</small></div>
+        </div>
+      </div>
+      <div id="dashboard" class="metrics">
+        <div><span data-i18n="我的 PACK 持仓">我的 PACK 持仓</span><strong id="holding">—</strong><small id="eligible" data-i18n="等待钱包">等待钱包</small></div>
+        <div><span data-i18n="本期可领">本期可领</span><strong id="latest-claim">—</strong><small id="snapshot" data-i18n="等待快照">等待快照</small></div>
+        <div><span data-i18n="我的碎片">我的碎片</span><strong id="fragments">—</strong><small data-i18n="每 100 碎片开一次">每 100 碎片开一次</small></div>
+        <div><span data-i18n="可抽奖池">可抽奖池</span><strong id="inventory">—</strong><small id="tax" data-i18n="等待金库">等待金库</small></div>
+      </div>
+      <div class="actions reward-actions">
+        <article class="panel">
+          <div class="panel-title"><span class="tile" aria-hidden="true">◆</span><div><h2 data-i18n="碎片分红">碎片分红</h2><p data-i18n="按快照时的合格持仓分配">按快照时的合格持仓分配</p></div></div>
+          <div class="round-head" aria-hidden="true"><span data-i18n="轮次 / 快照">轮次 / 快照</span><span data-i18n="奖励操作">奖励操作</span></div><div id="rounds" class="rounds" data-i18n="连接钱包后查看领取记录。">连接钱包后查看领取记录。</div>
+        </article>
+        <article class="panel draw">
+          <div class="panel-title"><span class="tile mint capsule" aria-hidden="true"></span><div><h2 data-i18n="开一盒">开一盒</h2><p data-i18n="领取盲盒，打开后随机获得一张卡">领取盲盒，打开后随机获得一张卡</p></div></div>
+          <div class="meter-label"><span id="progress-label" data-i18n="0 / 100 碎片">0 / 100 碎片</span><span id="boxes" data-i18n="0 次可抽">0 次可抽</span></div>
+          <progress id="progress" value="0" max="100"></progress>
+          <button class="primary" id="open" disabled data-i18n="消耗 100 碎片开盒">消耗 100 碎片开盒</button>
+          <div id="pending" hidden><p id="pending-copy"></p><button class="primary" id="open-box" hidden data-i18n="打开我的盲盒">打开我的盲盒</button><button class="secondary" id="reveal" hidden data-i18n="模拟揭晓">模拟揭晓</button><button class="secondary" id="cancel" disabled data-i18n="退回碎片">退回碎片</button></div>
+        </article>
+      </div>
+      <section class="collection">
+        <h2 data-i18n="收藏图鉴">收藏图鉴</h2><p data-i18n="当前钱包的开盒记录">当前钱包的开盒记录</p>
+        <div id="collection" class="collection-grid"></div>
+      </section>
+      <details class="panel controls" id="operator-panel" hidden>
+        <summary data-i18n="金库运营">金库运营</summary>
+        <div class="control-grid"><button class="secondary" id="stock" data-i18n="用税款购入一张卡">用税款购入一张卡</button><button class="secondary" id="trade" hidden data-i18n="模拟一笔 4 BNB 买入">模拟一笔 4 BNB 买入</button></div>
+        <label for="holders" data-i18n="快照名单，每行一个地址">快照名单，每行一个地址</label>
+        <textarea id="holders" rows="3" placeholder="0x…"></textarea>
+        <button class="secondary" id="publish" data-i18n="发布碎片分红">发布碎片分红</button>
+      </details>
+    </section>
+
+    <section id="launch-panel" hidden>
+      <div class="section-heading"><div class="eyebrow">✦ &nbsp; FLAP POOL LAUNCH</div><h1 data-i18n="集齐卡册开池">集齐卡册开池</h1><p data-i18n="募集资金达到目标，创世卡册也集齐后，由 Launcher 在 Flap Portal 创建代币与流动性池。">募集资金达到目标，创世卡册也集齐后，由 Launcher 在 Flap Portal 创建代币与流动性池。</p></div>
+      <div class="actions">
+        <article class="panel"><h2 data-i18n="发行进度">发行进度</h2><div class="launch-status" id="launch-info" data-i18n="暂无 Launcher">暂无 Launcher</div><p id="launch-collection" hidden></p><div id="album" class="album"></div>
+          <form id="contribute-form"><label for="contribution" data-i18n="认购金额 (BNB)">认购金额 (BNB)</label><input id="contribution" type="number" step="any" min="0" required value="1"><button class="primary" data-i18n="认购并揭晓创世卡">认购并揭晓创世卡</button></form>
+          <div class="control-grid launch-buttons"><button class="secondary" id="complete" data-i18n="补齐卡册">补齐卡册</button><button class="secondary" id="launch" data-i18n="开池">开池</button><button class="secondary" id="claim-token" data-i18n="领取 PACK">领取 PACK</button><button class="secondary" id="refund" data-i18n="退款">退款</button></div>
+        </article>
+        <article class="panel"><h2 data-i18n="创建新发行">创建新发行</h2><form id="create-form">
+          <label id="collection-field" hidden data-i18n="NFT 系列">NFT 系列<select name="collection" id="launch-collection-input"></select></label>
+          <label data-i18n="代币名">代币名<input name="name" value="PackLaunch" required maxlength="48"></label>
+          <label data-i18n="代币符号">代币符号<input name="symbol" value="PACK" required maxlength="12"></label>
+          <label data-i18n="元数据 CID">元数据 CID<input name="meta" placeholder="IPFS CID"></label>
+          <label data-i18n="发行目标 (BNB)">发行目标 (BNB)<input name="target" type="number" min="0" step="any" value="6" required></label>
+          <label data-i18n="认购时长 (小时)">认购时长 (小时)<input name="hours" type="number" min="1" max="720" value="24" required></label>
+          <label data-i18n="Flap 发行 Salt">Flap 发行 Salt<input name="salt" placeholder="本地演示可留空" data-i18n-placeholder="本地演示可留空"></label>
+          <button class="primary" data-i18n="通过 Portal 创建">通过 Portal 创建</button>
+        </form></article>
+      </div>
+    </section>
+    <dialog id="box-theater" class="box-theater" aria-labelledby="theater-title">
+      <div class="theater-lights" aria-hidden="true"></div>
+      <div class="theater-flash" aria-hidden="true"></div>
+      <button id="theater-close" class="secondary theater-close" aria-label="关闭开盒特效" data-i18n-aria="关闭开盒特效">×</button>
+      <p id="theater-stage" class="eyebrow">PACKLAUNCH</p>
+      <h2 id="theater-title" data-i18n="盲盒正在打开">盲盒正在打开</h2>
+      <div class="theater-display">
+        <div class="theater-pack" aria-hidden="true"><span>✦</span></div>
+        <div id="theater-card" class="theater-card" hidden></div>
+      </div>
+      <p id="theater-detail" role="status" data-i18n="等待链上揭晓">等待链上揭晓</p>
+    </dialog>
+    <dialog id="share-dialog" class="share-dialog" aria-labelledby="share-title">
+      <form method="dialog"><button class="secondary theater-close" aria-label="关闭晒卡" data-i18n-aria="关闭晒卡">×</button></form>
+      <h2 id="share-title" data-i18n="晒卡活动">晒卡活动</h2>
+      <p id="share-mode"></p>
+      <p id="share-card"></p>
+      <label for="share-text" data-i18n="发帖内容">发帖内容</label>
+      <textarea id="share-text" rows="4" readonly></textarea>
+      <a id="share-post" class="secondary share-post" target="_blank" rel="noopener noreferrer" hidden data-i18n="在 X 发帖">在 X 发帖</a>
+      <form id="share-form">
+        <label for="share-url" data-i18n="公开帖子链接或 ID">公开帖子链接或 ID</label>
+        <input id="share-url" placeholder="https://x.com/…/status/…">
+        <button class="primary" id="share-verify" data-i18n="验证晒卡">验证晒卡</button>
+      </form>
+      <p id="share-status" role="status"></p>
+    </dialog>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <footer><span>PACKLAUNCH</span><span id="contract-label"></span></footer>
+  </main>
+</body>
+</html>

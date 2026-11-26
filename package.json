@@ -1,0 +1,16 @@
+{
+  "name": "packlaunch",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/server.mjs",
+    "demo": "node scripts/demo.mjs",
+    "test": "node scripts/demo.mjs --test",
+    "testnet": "node scripts/testnet.mjs",
+    "test:flap": "node scripts/flap-fork.mjs"
+  },
+  "dependencies": {
+    "ethers": "6.9.0",
+    "solc": "0.8.26"
+  }
+}

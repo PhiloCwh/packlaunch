@@ -1,0 +1,5 @@
+{
+  "en": {"summary":"Complete the album to launch. Hold PACK to earn mystery-box fragments.","noInstance":"Open a PackLaunch instance.","raised":"Collected","issuance":"Token","pending":"Pending launch","open":"Open PackLaunch","unavailable":"Open the standalone PackLaunch website with this launcher address."},
+  "zh": {"summary":"集齐卡册后开池，持有 PACK 获得盲盒碎片。","noInstance":"请打开一个 PackLaunch 发行实例。","raised":"募集金额","issuance":"代币","pending":"等待发行","open":"打开 PackLaunch","unavailable":"可在 PackLaunch 独立站用当前 Launcher 地址打开。"},
+  "ko": {"summary":"앨범을 완성해 출시하고 PACK을 보유해 미스터리 박스 조각을 받으세요.","noInstance":"PackLaunch 인스턴스를 선택하세요.","raised":"모금액","issuance":"토큰","pending":"출시 대기 중","open":"PackLaunch 열기","unavailable":"별도 PackLaunch 웹사이트에서 이 런처 주소를 사용하세요."}
+}

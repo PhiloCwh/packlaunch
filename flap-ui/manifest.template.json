@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 2,
+  "kind": "launcher-ui",
+  "artifactId": "packlaunch-detail",
+  "name": "PackLaunch",
+  "chainId": 97,
+  "factoryAddress": "",
+  "configContract": "launcher-detail/v1",
+  "surfaces": ["launcher-ui"],
+  "entry": "Component.tsx",
+  "reads": {
+    "raisedWei": { "functionName": "raised", "returns": "uint256" },
+    "tokenAddress": { "functionName": "token", "returns": "address" }
+  }
+}
